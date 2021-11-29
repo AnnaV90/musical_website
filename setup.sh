@@ -1,9 +1,13 @@
 mkdir -p ~/.streamlit/
-sudo apt-get -y install apt-utils gcc libpq-dev libsndfile-dev
+
+echo "\
+[general]\n\
+email = \"${HEROKU_EMAIL_ADDRESS}\"\n\
+" > ~/.streamlit/credentials.toml
+
 echo "\
 [server]\n\
 headless = true\n\
-port = $PORT\n\
 enableCORS = false\n\
-\n\
+port = $PORT\n\
 " > ~/.streamlit/config.toml
