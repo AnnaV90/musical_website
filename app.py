@@ -12,6 +12,7 @@ st.image('image_interface/vinyl-records_istock.png', caption=None, width=None, u
 
 midi_file = MIDIFILE
 
+st.write(note_seq.__version__)
 sequence = note_seq.midi_file_to_note_sequence(midi_file)
 p = note_seq.plot_sequence(sequence, show_figure=False)
 note_seq.sequence_proto_to_midi_file(sequence, 'test_sequence.mid')
