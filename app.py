@@ -2,17 +2,8 @@ import streamlit as st
 from bokeh.plotting import figure, output_file, show
 import note_seq
 from note_seq.protobuf import music_pb2
-
-import ctypes.util
-orig_ctypes_util_find_library = ctypes.util.find_library
-
-def proxy_find_library(lib):
-    if lib == 'fluidsynth':
-        return 'libfluidsynth.so.1'
-    else:
-        return orig_ctypes_util_find_library(lib)
-
-ctypes.util.find_library = proxy_find_library
+from scipy.io.wavfile import write
+import numpy as np
 
 
 st.title('Deep Music')
@@ -36,9 +27,12 @@ note_seq.sequence_proto_to_midi_file(teapot, 'test_sequence.mid')
 st.bokeh_chart(p, use_container_width=True)
 note_seq.play_sequence(teapot, synth=note_seq.synthesize)
 
-# audio_file = open('test_sequence.mid', 'rb')
-# audio_bytes = audio_file.read()
-# st.audio(audio_bytes, format='audio/mid')
+array = note_seq.synthesize(teapot, 44100)
+write("Tests_music/test.wav", 44100, array.astype(np.float32))
+
+audio_file = open('Tests_music/test.wav', 'rb')
+audio_bytes = audio_file.read()
+st.audio(audio_bytes, format='audio/ogg')
 
 # audio_file = open('Tests_music/live.wav', 'rb')
 # audio_bytes = audio_file.read()
