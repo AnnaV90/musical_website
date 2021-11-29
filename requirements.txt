@@ -31,3 +31,4 @@ streamlit
 bokeh==2.4.1
 note_seq==0.0.3
 AudioSegment
+librosa==0.8.1
