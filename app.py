@@ -5,35 +5,22 @@ from note_seq.protobuf import music_pb2
 from scipy.io.wavfile import write
 import numpy as np
 
+MIDIFILE = 'Tests_music/i-do-like-to-be-beside-the-seaside.mid'
 
 st.title('Deep Music')
 st.image('image_interface/vinyl-records_istock.png', caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
-st.selectbox('Select note', ['A', 'B', 'C'])
 
-teapot = music_pb2.NoteSequence()
-teapot.notes.add(pitch=69, start_time=0, end_time=0.5, velocity=80)
-teapot.notes.add(pitch=71, start_time=0.5, end_time=1, velocity=80)
-teapot.notes.add(pitch=73, start_time=1, end_time=1.5, velocity=80)
-teapot.notes.add(pitch=74, start_time=1.5, end_time=2, velocity=80)
-teapot.notes.add(pitch=76, start_time=2, end_time=2.5, velocity=80)
-teapot.notes.add(pitch=81, start_time=3, end_time=4, velocity=80)
-teapot.notes.add(pitch=78, start_time=4, end_time=5, velocity=80)
-teapot.notes.add(pitch=81, start_time=5, end_time=6, velocity=80)
-teapot.notes.add(pitch=76, start_time=6, end_time=8, velocity=80)
-teapot.total_time = 8
-teapot.tempos.add(qpm=60)
-p = note_seq.plot_sequence(teapot, show_figure=False)
-note_seq.sequence_proto_to_midi_file(teapot, 'test_sequence.mid')
+midi_file = MIDIFILE
+
+sequence = note_seq.midi_file_to_note_sequence(midi_file)
+p = note_seq.plot_sequence(sequence, show_figure=False)
+note_seq.sequence_proto_to_midi_file(sequence, 'test_sequence.mid')
 st.bokeh_chart(p, use_container_width=True)
-note_seq.play_sequence(teapot, synth=note_seq.synthesize)
+note_seq.play_sequence(sequence, synth=note_seq.synthesize)
 
-array = note_seq.synthesize(teapot, 44100)
+array = note_seq.synthesize(sequence, 44100)
 write("Tests_music/test.wav", 44100, array.astype(np.float32))
 
 audio_file = open('Tests_music/test.wav', 'rb')
 audio_bytes = audio_file.read()
 st.audio(audio_bytes, format='audio/ogg')
-
-# audio_file = open('Tests_music/live.wav', 'rb')
-# audio_bytes = audio_file.read()
-# st.audio(audio_bytes, format='audio/ogg')
