@@ -28,3 +28,7 @@ joblib
 memoized-property
 termcolor
 streamlit
+bokeh=2.4.1
+note_seq
+music_pb2
+AudioSegment
