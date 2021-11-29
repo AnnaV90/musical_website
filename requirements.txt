@@ -29,6 +29,7 @@ memoized-property
 termcolor
 streamlit
 bokeh==2.4.1
-note_seq
+note_seq==0.0.3
 AudioSegment
-pysndfile
+librosa==0.8.1
+SoundFile
