@@ -1,4 +1,5 @@
 mkdir -p ~/.streamlit/
+sudo apt-get install libsndfile1-dev
 echo "\
 [server]\n\
 headless = true\n\
