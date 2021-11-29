@@ -6,5 +6,5 @@ run:
   web: bundle exec puma -C config/puma.rb
   worker:
     command:
-      - streamlit run app.py
+      - streamlit run app.py --server.port $PORT
     image: web
