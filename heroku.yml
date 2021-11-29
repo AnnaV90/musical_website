@@ -2,3 +2,9 @@ build:
   docker:
     web: Dockerfile
     worker: Dockerfile
+run:
+  web: bundle exec puma -C config/puma.rb
+  worker:
+    command:
+      - streamlit run app.py
+    image: web
