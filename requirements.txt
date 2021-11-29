@@ -31,4 +31,4 @@ streamlit
 bokeh==2.4.1
 note_seq
 AudioSegment
-libsndfile1
+libsndfile
